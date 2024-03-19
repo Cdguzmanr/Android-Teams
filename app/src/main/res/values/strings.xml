@@ -3,4 +3,6 @@
     <string name="show_a_list_of_teams">Show a list of Teams</string>
     <string name="show_the_map_page">Show the map page</string>
     <string name="show_the_settings_page">Show the settings page</string>
+    <string name="team_image">Team Image</string>
+    <string name="is_favorite">Is Favorite</string>
 </resources>
