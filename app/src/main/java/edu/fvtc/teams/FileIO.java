@@ -77,7 +77,7 @@ public class FileIO {
     }
 
     public ArrayList<Team> ReadFromXMLFile(String filename,
-                                            AppCompatActivity activity)
+                                           AppCompatActivity activity)
     {
         ArrayList<Team> teams = new ArrayList<Team>();
         Log.d(TAG, "ReadFromXMLFile: Start");
@@ -94,13 +94,15 @@ public class FileIO {
                 if(xmlPullParser.getEventType() == XmlPullParser.START_TAG)
                 {
                     Log.d(TAG, "ReadFromXMLFile: START_TAG");
-                    if(xmlPullParser.getName().equals("team"))
+                    if(xmlPullParser.getName().equals("Team"))
                     {
                         Log.d(TAG, "ReadFromXMLFile: Start Team Parsing");
                         int id = Integer.parseInt(xmlPullParser.getAttributeValue(null, "id"));
-                        String firstName = xmlPullParser.getAttributeValue(null, "firstname");
-                        String lastName = xmlPullParser.getAttributeValue(null, "lastname");
-                        Team team = new Team(); // modify constructor later
+                        String name = xmlPullParser.getAttributeValue(null, "name");
+                        String city = xmlPullParser.getAttributeValue(null, "city");
+                        String cellphone = xmlPullParser.getAttributeValue(null, "cellphone");
+                        Float rating = Float.valueOf(xmlPullParser.getAttributeValue(null, "rating"));
+                        Team team = new Team();
                         teams.add(team);
                         Log.d(TAG, "ReadFromXMLFile: " + team.toString());
                     }
@@ -122,7 +124,7 @@ public class FileIO {
 
     public void WriteXMLFile(String filename,
                              AppCompatActivity activity,
-                             ArrayList<Team> teams)
+                             ArrayList<Team> Teams)
     {
         try
         {
@@ -137,29 +139,26 @@ public class FileIO {
             serializer.setOutput(outputStreamWriter);
 
             serializer.startDocument("UTF-8", true);
-            serializer.startTag("", "teams");
-            serializer.attribute("", "number", String.valueOf(teams.size()));
+            serializer.startTag("", "Teams");
+            serializer.attribute("", "number", String.valueOf(Teams.size()));
 
-            for(Team team : teams)
+            for(Team Team : Teams)
             {
-
-                // modify later
-                serializer.startTag("", "team");
-                serializer.attribute("", "id", String.valueOf(team.getId()));
-//                serializer.attribute("", "firstname", String.valueOf(team.getFirstName()));
-//                serializer.attribute("", "lastname", String.valueOf(team.getLastName()));
-                serializer.endTag("", "team");
-
-
-
-                Log.d(TAG, "WriteXMLFile: " + team.toString());
+                serializer.startTag("", "Team");
+                serializer.attribute("", "id", String.valueOf(Team.getId()));
+                serializer.attribute("", "name", String.valueOf(Team.getName()));
+                serializer.attribute("", "city", String.valueOf(Team.getCity()));
+                serializer.attribute("", "cellphone", String.valueOf(Team.getCellPhone()));
+                serializer.attribute("", "rating", String.valueOf(Team.getRating()));
+                serializer.endTag("", "Team");
+                Log.d(TAG, "WriteXMLFile: " + Team.toString());
             }
 
-            serializer.endTag("", "teams");
+            serializer.endTag("", "Teams");
             serializer.endDocument();
             serializer.flush();
             outputStreamWriter.close();
-            Log.d(TAG, "WriteXMLFile: Wrote " + teams.size());
+            Log.d(TAG, "WriteXMLFile: Wrote " + Teams.size());
             Log.d(TAG, "WriteXMLFile: End");
         }
         catch(Exception e)

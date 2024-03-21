@@ -6,4 +6,5 @@
     <color name="purple">#663399</color>
     <color name="navyblue">#1a1a48</color>
     <color name="blue">#0000FF</color>
+    <color name="toolbar_background">#bebebe</color>
 </resources>

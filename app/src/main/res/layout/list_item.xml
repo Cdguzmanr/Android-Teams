@@ -1,58 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/border_line"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16dp"
-        android:layout_marginTop="@dimen/_16dp"
-        android:textColor="@color/blue"
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Name"
-        />
-
-    <TextView
-        android:id="@+id/tvCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16dp"
-        android:textColor="@color/purple"
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@id/tvName"
-        android:text="City"
-        />
-
-    <CheckBox
-        android:id="@+id/chkFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="@color/purple"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/imgPhoto"
-
-
-        android:text="@string/is_favorite"
-        />
 
     <ImageButton
         android:id="@+id/imgPhoto"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="8dp"
-        android:src="@drawable/packers"
         android:contentDescription="@string/team_image"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/packers"/>
 
-        />
+    <CheckBox
+        android:id="@+id/chkFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/purple"
+        android:text="@string/is_favorite"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgPhoto" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginStart="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_16dp"
+        android:textColor="@color/blue"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="@dimen/_16dp"
+        android:textColor="@color/purple"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

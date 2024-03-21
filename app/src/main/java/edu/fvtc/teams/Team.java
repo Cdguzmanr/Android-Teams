@@ -1,49 +1,15 @@
 package edu.fvtc.teams;
 
 public class Team {
-    // properties
     private int id;
     private String name;
     private String city;
     private String cellPhone;
-    private float rating;
+    private float  rating;
+    private int imgId;
     private boolean isFavorite;
-    public int imgId;
 
 
-    // Constructor
-    public Team(){
-
-        this.name = "";
-        this.city = "";
-        this.cellPhone = "";
-        this.rating = 0;
-        this.imgId = 0;
-
-    }
-
-public Team(int id, String name, String city, String cellPhone, float rating, boolean isFavorite, int imgId){
-    this.name = "";
-    this.city = "";
-    this.cellPhone = "";
-    this.rating = 0;
-    this.imgId = 0;
-
-    }
-
-    @Override
-    public String toString(){
-        return String.valueOf(id) + '|' +
-                name + '|' +
-                city + '|' +
-                cellPhone + '|' +
-                rating + '|' +
-                isFavorite + '|' +
-                imgId + '|';
-    }
-
-
-    // Get - Set Methods
     public int getId() {
         return id;
     }
@@ -84,6 +50,14 @@ public Team(int id, String name, String city, String cellPhone, float rating, bo
         this.rating = rating;
     }
 
+    public int getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(int imgId) {
+        this.imgId = imgId;
+    }
+
     public boolean isFavorite() {
         return isFavorite;
     }
@@ -92,11 +66,43 @@ public Team(int id, String name, String city, String cellPhone, float rating, bo
         isFavorite = favorite;
     }
 
-    public int getImgId() {
-        return imgId;
+    public Team()
+    {
+        this.id = -1;
+        this.name = "";
+        this.city = "";
+        this.cellPhone = "";
+        this.rating = 0.0f;
+        this.imgId = 0;
+        this.isFavorite = false;
     }
 
-    public void setImgId(int imgId) {
+    public Team(int id,
+                String name,
+                String city,
+                String cellPhone,
+                float rating,
+                boolean isFavorite,
+                int imgId)
+    {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.cellPhone = cellPhone;
+        this.rating = rating;
         this.imgId = imgId;
+        this.isFavorite = isFavorite;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(id) + '|' +
+                name + '|' +
+                city + '|' +
+                cellPhone + '|' +
+                rating + '|' +
+                isFavorite + '|' +
+                imgId;
     }
 }

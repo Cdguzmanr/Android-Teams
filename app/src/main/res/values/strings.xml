@@ -5,4 +5,13 @@
     <string name="show_the_settings_page">Show the settings page</string>
     <string name="team_image">Team Image</string>
     <string name="is_favorite">Is Favorite</string>
+    <string name="off">OFF</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="city">City</string>
+    <string name="enter_city">Enter City</string>
+    <string name="cell_phone">Cell Phone</string>
+    <string name="rating">Rating</string>
+    <string name="rate">Rate</string>
 </resources>
