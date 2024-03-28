@@ -4,7 +4,7 @@
     <string name="show_the_map_page">Show the map page</string>
     <string name="show_the_settings_page">Show the settings page</string>
     <string name="team_image">Team Image</string>
-    <string name="is_favorite">Is/ Favorite</string>
+    <string name="is_favorite">Is Favorite</string>
     <string name="off">OFF</string>
     <string name="save">Save</string>
     <string name="name">Name</string>
@@ -14,4 +14,7 @@
     <string name="cell_phone">Cell Phone</string>
     <string name="rating">Rating</string>
     <string name="rate">Rate</string>
+    <string name="delete">Delete</string>
+    <string name="_100">100%</string>
+    <string name="newtext">New</string>
 </resources>

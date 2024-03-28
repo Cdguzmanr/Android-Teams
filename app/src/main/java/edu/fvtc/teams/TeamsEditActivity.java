@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -22,6 +21,7 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
     Team team;
     boolean loading = true;
     int teamId = -1;
+
     ArrayList<Team> teams;
 
 
@@ -41,11 +41,11 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
         {
             // Get the team
             initTeam(teamId-1);
-
         }
         else {
             team = new Team();
         }
+
         Navbar.initListButton(this);
         Navbar.initSettingsButton(this);
         Navbar.initMapButton(this);
@@ -53,9 +53,13 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
         initRatingButton();
         initToggleButton();
         initSaveButton();
+
         initTextChanged(R.id.etName);
         initTextChanged(R.id.etCity);
         initTextChanged(R.id.editCell);
+
+        // Get the teams
+        teams = TeamsListActivity.readTeams(this);
 
         setForEditting(false);
         Log.d(TAG, "onCreate: End");
@@ -67,10 +71,14 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (teamId == -1){
+                if(teamId == -1)
+                {
+                    Log.d(TAG, "onClick: " + team.toString());
+                    team.setId(teams.get(teams.size()-1).getId() + 1);
                     teams.add(team);
-                } else {
-                    teams.set(teamId-1,team);
+                }
+                else {
+                    teams.set(teamId - 1, team);
                 }
                 FileIO.writeFile(TeamsListActivity.FILENAME,
                         TeamsEditActivity.this,
@@ -79,8 +87,10 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
         });
     }
 
-    private void initTextChanged(int controlId){
+    private void initTextChanged(int controlId)
+    {
         EditText editText = findViewById(controlId);
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,44 +111,45 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
 
     private void initToggleButton() {
         ToggleButton toggleButton = findViewById(R.id.toggleButtonEdit);
+
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setForEditting(toggleButton.isChecked());
             }
-
-
         });
+
     }
 
     private void setForEditting(boolean checked) {
         EditText editName = findViewById(R.id.etName);
         EditText editCity = findViewById(R.id.etCity);
         EditText editCellPhone = findViewById(R.id.editCell);
-        TextView editRating = findViewById(R.id.btnRating);
-
+        Button btnRating = findViewById(R.id.btnRating);
 
         editName.setEnabled(checked);
         editCity.setEnabled(checked);
         editCellPhone.setEnabled(checked);
-        editRating.setEnabled(checked);
+        btnRating.setEnabled(checked);
 
-        if (checked){
-            // Set focus to the edit name
+        if(checked) {
+            // Set Focus to the editName
             editName.requestFocus();
-        } else {
+        }
+        else {
             ScrollView scrollView = findViewById(R.id.scrollView);
             scrollView.fullScroll(ScrollView.FOCUS_UP);
         }
     }
 
     private void initTeam(int teamId) {
+
         // Get the teams
         teams = TeamsListActivity.readTeams(this);
-
         // Get the team
         team = teams.get(teamId);
         rebindTeam();
+
     }
 
     private void rebindTeam() {
@@ -150,7 +161,8 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
         editName.setText(team.getName());
         editCity.setText(team.getCity());
         editCellPhone.setText(team.getCellPhone());
-        editRating.setText(String.valueOf(R.id.ratingBar)); // <<-----------
+        editRating.setText(String.valueOf(team.getRating()));
+
     }
 
     private void initRatingButton()
@@ -173,5 +185,6 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
         TextView txtRating = findViewById(R.id.txtRating);
         txtRating.setText(String.valueOf(rating));
         team.setRating(rating);
+
     }
 }
