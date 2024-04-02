@@ -10,6 +10,16 @@ import androidx.annotation.Nullable;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "DatabaseHelper";
+    public static final String DATABASE_NAME = "teams.db";
+
+    public static final String CREATE_TEAM_SQL=
+            "create table tblTeam (id integer primary key autoincrement, "
+                    + "name text not null, "
+                    + "city text not null, "
+                    + "imgId integer not null, "
+                    + "isFavorite bit, "
+                    + "rating float, "
+                    + "phone text not null)";
     public static final int DATABASE_VERSION = 1;
     public DatabaseHelper(@Nullable Context context,
                           @Nullable String name,
@@ -20,21 +30,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql;
-
-        sql ="CREATE TABLE IF NOT EXISTS tblItem (Id integer primary key autoincrement, FirstName text, LastName text);";
-        Log.d(TAG, "onCreate: " + sql);
         // Create the table
-        db.execSQL(sql);
-
-        // Insert an item.
-        sql = "INSERT INTO tblItem VALUES (1, 'Jennifer', 'Aniston');";
-        db.execSQL(sql);
-
+        Log.d(TAG, "onCreate: ");
+        db.execSQL(CREATE_TEAM_SQL);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade: ");
+        db.execSQL("DROP TABLE IF EXISTS tblTeam");
+        onCreate(db);
     }
 }

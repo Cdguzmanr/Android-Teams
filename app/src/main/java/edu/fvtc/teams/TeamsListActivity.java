@@ -44,11 +44,7 @@ public class TeamsListActivity extends AppCompatActivity {
             Log.d(TAG, "onCheckedChanged: " + isChecked);
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) buttonView.getTag();
             int position = viewHolder.getAdapterPosition();
-
-            teams.get(position).setFavorite(isChecked);
-
-            //teams.remove(teams.get(position));
-
+            teams.get(position).setIsFavorite(isChecked);
             FileIO.writeFile(TeamsListActivity.FILENAME,
                     TeamsListActivity.this,
                     createDataArray(teams));
@@ -66,16 +62,25 @@ public class TeamsListActivity extends AppCompatActivity {
         this.setTitle("List");
         teams = new ArrayList<Team>();
 
-        teams = readTeams(this);
-        if(teams.size() == 0)
-            createTeams();
+        initDatabase();
+
+        //teams = readTeams(this);
+        //if(teams.size() == 0) {
+        //    createTeams();
+        //}
 
         initDeleteSwitch();
         initAddTeamButton();
-
-
         RebindTeams();
     }
+
+    private void initDatabase() {
+        TeamsDataSource ds = new TeamsDataSource(this);
+        ds.open(true);
+        teams = ds.get();
+        Log.d(TAG, "initDatabase: Teams: " + teams.size());
+    }
+
 
     private void initAddTeamButton() {
         Button btnAddTeam = findViewById(R.id.btnAddTeam);
@@ -115,7 +120,9 @@ public class TeamsListActivity extends AppCompatActivity {
 
     }
 
+
     private void createTeams() {
+        Log.d(TAG, "createTeams: Start");
         teams = new ArrayList<Team>();
 
         teams.add(new Team(1, "Packers", "Green Bay","9205551234", 1, true, R.drawable.packers ));
@@ -125,6 +132,7 @@ public class TeamsListActivity extends AppCompatActivity {
 
         FileIO.writeFile(FILENAME, this, createDataArray(teams));
         teams = readTeams(this);
+        Log.d(TAG, "createTeams: End: " + teams.size());
     }
 
     public static ArrayList<Team> readTeams(AppCompatActivity activity) {

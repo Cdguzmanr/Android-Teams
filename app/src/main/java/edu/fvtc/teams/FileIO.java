@@ -22,8 +22,8 @@ public class FileIO {
     public static final String TAG = "FileIOMethods";
 
     public static void writeFile(String filename,
-                          AppCompatActivity activity,
-                          String[] items)
+                                 AppCompatActivity activity,
+                                 String[] items)
     {
         try {
             OutputStreamWriter writer = new OutputStreamWriter(activity.openFileOutput(filename, Context.MODE_PRIVATE));
@@ -50,7 +50,7 @@ public class FileIO {
     }
 
     public static ArrayList<String> readFile(String filename,
-                                      AppCompatActivity activity)
+                                             AppCompatActivity activity)
     {
         ArrayList<String> items = new ArrayList<String>();
 

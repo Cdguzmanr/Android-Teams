@@ -58,11 +58,11 @@ public class Team {
         this.imgId = imgId;
     }
 
-    public boolean isFavorite() {
+    public boolean getIsFavorite() {
         return isFavorite;
     }
 
-    public void setFavorite(boolean favorite) {
+    public void setIsFavorite(boolean favorite) {
         isFavorite = favorite;
     }
 
@@ -94,14 +94,19 @@ public class Team {
         this.isFavorite = isFavorite;
     }
 
-    public void setControlText(int controlId, String value){
-        if (controlId == R.id.etName){
+    public void setControlText(int controlId, String value)
+    {
+        if(controlId == R.id.etName)
+        {
             this.setName(value);
         } else if (controlId == R.id.etCity) {
             this.setCity(value);
-        } else {
+        }
+        else
+        {
             this.setCellPhone(value);
         }
+
     }
 
     @Override
