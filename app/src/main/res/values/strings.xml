@@ -17,4 +17,9 @@
     <string name="delete">Delete</string>
     <string name="_100">100%</string>
     <string name="newtext">New</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string name="sort_order">Sort Order</string>
+    <string name="sort_by">Sort By</string>
+    <string name="team_settings">Settings</string>
 </resources>

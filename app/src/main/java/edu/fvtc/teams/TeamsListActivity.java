@@ -5,6 +5,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,9 +69,9 @@ public class TeamsListActivity extends AppCompatActivity {
         initDatabase();
 
         //teams = readTeams(this);
-        if(teams.size() == 0) {
-            createTeams();
-        }
+        //if(teams.size() == 0) {
+        //    createTeams();
+        //}
 
         initDeleteSwitch();
         initAddTeamButton();
@@ -80,7 +81,13 @@ public class TeamsListActivity extends AppCompatActivity {
     private void initDatabase() {
         TeamsDataSource ds = new TeamsDataSource(this);
         ds.open(false);
-        teams = ds.get();
+        String sortBy = getSharedPreferences("teamspreferences",
+                Context.MODE_PRIVATE)
+                .getString("sortby", "name");
+        String sortOrder = getSharedPreferences("teamspreferences",
+                Context.MODE_PRIVATE)
+                .getString("sortorder", "ASC");
+        teams = ds.get(sortBy, sortOrder);
         Log.d(TAG, "initDatabase: Teams: " + teams.size());
     }
 
@@ -138,7 +145,7 @@ public class TeamsListActivity extends AppCompatActivity {
 
         TeamsDataSource ds = new TeamsDataSource(TeamsListActivity.this);
         ds.open(true);
-        teams = ds.get();
+        teams = ds.get("Name", "ASC");
 
         Log.d(TAG, "createTeams: End: " + teams.size());
     }
