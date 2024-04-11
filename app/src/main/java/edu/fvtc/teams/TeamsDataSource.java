@@ -1,5 +1,6 @@
 package edu.fvtc.teams;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -19,6 +20,7 @@ public class TeamsDataSource {
                 DatabaseHelper.DATABASE_NAME,
                 null,
                 DatabaseHelper.DATABASE_VERSION);
+        open();
     }
 
     public void open() throws SQLException{
@@ -57,7 +59,45 @@ public class TeamsDataSource {
 
     public Team get(int id)
     {
-        return new Team();
+        ArrayList<Team> teams = new ArrayList<Team>();
+        Team team = null;
+
+        try{
+            String query = "Select * from tblTeam where id = " + id;
+            Cursor cursor = database.rawQuery(query, null);
+
+            //Cursor cursor = database.query("tblTeam",null, null, null, null, null, null);
+
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast())
+            {
+                team = new Team();
+                team.setId(cursor.getInt(0));
+                team.setName(cursor.getString(1));
+                team.setCity(cursor.getString(2));
+                team.setImgId(cursor.getInt(3));
+
+                Boolean fav = (cursor.getInt(4) == 1);
+                team.setIsFavorite(fav);
+
+                team.setRating(cursor.getFloat(5));
+                team.setCellPhone(cursor.getString(6));
+
+                //team.setLatitude(cursor.getDouble(7));
+                //team.setLongitude(cursor.getDouble(8));
+
+                Log.d(TAG, "get: " + team.toString());
+
+                cursor.moveToNext();
+
+            }
+        }
+        catch(Exception e)
+        {
+            Log.d(TAG, "get: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return team;
     }
 
     public ArrayList<Team> get()
@@ -103,11 +143,46 @@ public class TeamsDataSource {
 
     public int deleteAll()
     {
+        try{
+            return database.delete("tblTeam", null, null);
+        }
+        catch(Exception e)
+        {
+            Log.d(TAG, "get: " + e.getMessage());
+            e.printStackTrace();
+        }
         return 0;
     }
 
+    public int delete(Team team)
+    {
+        Log.d(TAG, "delete: Start");
+        try{
+            int id = team.getId();
+            if(id < 1)
+                return 0;
+            Log.d(TAG, "delete: " + id);
+            return delete(id);
+        }
+        catch(Exception e)
+        {
+            Log.d(TAG, "Delete: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return 0;
+    }
     public int delete(int id)
     {
+        try{
+            Log.d(TAG, "delete: Start : " + id);
+            Log.d(TAG, "delete: database" + database.isOpen());
+            return database.delete("tblTeam", "id = " + id, null);
+        }
+        catch(Exception e)
+        {
+            Log.d(TAG, "Delete: " + e.getMessage());
+            e.printStackTrace();
+        }
         return 0;
     }
 
@@ -129,13 +204,61 @@ public class TeamsDataSource {
         return newId;
     }
 
-    public int insert(Team team)
-    {
-        return 0;
-    }
     public int update(Team team)
     {
-        return 0;
+        Log.d(TAG, "update: Start" + team.toString());
+        int rowsaffected = 0;
+
+        if(team.getId() < 1)
+            return insert(team);
+
+        try{
+            ContentValues values = new ContentValues();
+            values.put("name", team.getName());
+            values.put("city", team.getCity());
+            values.put("imgId", team.getImgId());
+            values.put("isFavorite", team.getIsFavorite());
+            values.put("rating", team.getRating());
+            values.put("phone", team.getCellPhone());
+            //values.put("latitude", team.getLatitude());
+            //values.put("longitude", team.getLongitude());
+
+            String where = "id = " + team.getId();
+
+            rowsaffected = (int)database.update("tblTeam", values, where, null);
+        }
+        catch(Exception e)
+        {
+            Log.d(TAG, "get: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return rowsaffected;
+    }
+    public int insert(Team team)
+    {
+        Log.d(TAG, "insert: Start");
+        int rowsaffected = 0;
+
+        try{
+            ContentValues values = new ContentValues();
+            values.put("name", team.getName());
+            values.put("city", team.getCity());
+            values.put("imgId", team.getImgId());
+            values.put("isFavorite", team.getIsFavorite());
+            values.put("rating", team.getRating());
+            values.put("phone", team.getCellPhone());
+            //values.put("latitude", team.getLatitude());
+            //values.put("longitude", team.getLongitude());
+
+            rowsaffected = (int)database.insert("tblTeam", null, values);
+        }
+        catch(Exception e)
+        {
+            Log.d(TAG, "get: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return rowsaffected;
+
     }
 }
 

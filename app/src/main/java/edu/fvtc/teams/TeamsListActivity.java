@@ -45,9 +45,12 @@ public class TeamsListActivity extends AppCompatActivity {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) buttonView.getTag();
             int position = viewHolder.getAdapterPosition();
             teams.get(position).setIsFavorite(isChecked);
-            FileIO.writeFile(TeamsListActivity.FILENAME,
-                    TeamsListActivity.this,
-                    createDataArray(teams));
+            TeamsDataSource ds = new TeamsDataSource(TeamsListActivity.this);
+            ds.update(teams.get(position));
+
+            //FileIO.writeFile(TeamsListActivity.FILENAME,
+            //        TeamsListActivity.this,
+            //        createDataArray(teams));
         }
     };
 
@@ -65,9 +68,9 @@ public class TeamsListActivity extends AppCompatActivity {
         initDatabase();
 
         //teams = readTeams(this);
-        //if(teams.size() == 0) {
-        //    createTeams();
-        //}
+        if(teams.size() == 0) {
+            createTeams();
+        }
 
         initDeleteSwitch();
         initAddTeamButton();
@@ -76,7 +79,7 @@ public class TeamsListActivity extends AppCompatActivity {
 
     private void initDatabase() {
         TeamsDataSource ds = new TeamsDataSource(this);
-        ds.open(true);
+        ds.open(false);
         teams = ds.get();
         Log.d(TAG, "initDatabase: Teams: " + teams.size());
     }
@@ -125,13 +128,18 @@ public class TeamsListActivity extends AppCompatActivity {
         Log.d(TAG, "createTeams: Start");
         teams = new ArrayList<Team>();
 
-        teams.add(new Team(1, "Packers", "Green Bay","9205551234", 1, true, R.drawable.packers ));
-        teams.add(new Team(2, "Lions", "Detroit","9204441234", 2, false, R.drawable.lions ));
-        teams.add(new Team(3, "Vikings", "Minneapolis","9203331234", 4, false, R.drawable.vikings ));
-        teams.add(new Team(4, "Bears", "Chicago","9202221234", 4, false, R.drawable.bears ));
+        //teams.add(new Team(1, "Packers", "Green Bay","9205551234", 1, true, R.drawable.packers ));
+        //teams.add(new Team(2, "Lions", "Detroit","9204441234", 2, false, R.drawable.lions ));
+        //teams.add(new Team(3, "Vikings", "Minneapolis","9203331234", 4, false, R.drawable.vikings ));
+        //teams.add(new Team(4, "Bears", "Chicago","9202221234", 4, false, R.drawable.bears ));
 
-        FileIO.writeFile(FILENAME, this, createDataArray(teams));
-        teams = readTeams(this);
+        //FileIO.writeFile(FILENAME, this, createDataArray(teams));
+        //teams = readTeams(this);
+
+        TeamsDataSource ds = new TeamsDataSource(TeamsListActivity.this);
+        ds.open(true);
+        teams = ds.get();
+
         Log.d(TAG, "createTeams: End: " + teams.size());
     }
 
