@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -136,15 +137,12 @@ public class RestClient {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(context);
             JSONObject object = new JSONObject();
-
             object.put("id", team.getId());
             object.put("name", team.getName());
             object.put("city", team.getCity());
             object.put("rating", team.getRating());
             object.put("cellNumber", team.getCellPhone());
             object.put("isFavorite", team.getIsFavorite());
-
-
             if(team.getPhoto() != null)
             {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -158,8 +156,6 @@ public class RestClient {
             {
                 object.put("photo", null);
             }
-
-
             final String requestBody = object.toString();
             Log.d(TAG, "executeRequest: " + requestBody);
 
@@ -167,7 +163,18 @@ public class RestClient {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d(TAG, "onResponse: " + response);
+                            ArrayList<Team> teams = new ArrayList<Team>();
+                            if(method == Request.Method.POST)
+                            {
+                                try {
+                                    team.setId(response.getInt("id"));
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            teams.add(team);
+                            Log.d(TAG, "onResponse: " + teams);
+                            volleyCallback.onSuccess(teams);
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -207,8 +214,6 @@ public class RestClient {
                         @Override
                         public void onResponse(String response) {
                             Log.d(TAG, "onResponse: " + response);
-
-
 
                             try {
                                 JSONObject object = new JSONObject(response);

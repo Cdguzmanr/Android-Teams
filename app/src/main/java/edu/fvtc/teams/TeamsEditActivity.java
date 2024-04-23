@@ -189,6 +189,10 @@ public class TeamsEditActivity extends AppCompatActivity implements RaterDialog.
                                 public void onSuccess(ArrayList<Team> result) {
                                     team.setId(result.get(0).getId());
                                     Log.d(TAG, "onSuccess: Post" + team.getId());
+
+                                    // Redirect to Main List View
+                                    Intent intent = new Intent(TeamsEditActivity.this, TeamsListActivity.class);
+                                    startActivity(intent);
                                 }
                             });
                 }
