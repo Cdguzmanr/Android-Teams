@@ -1,5 +1,7 @@
 package edu.fvtc.teams;
 
+import android.graphics.Bitmap;
+
 public class Team {
     private int id;
     private String name;
@@ -65,6 +67,16 @@ public class Team {
     public void setIsFavorite(boolean favorite) {
         isFavorite = favorite;
     }
+
+    public Bitmap getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
+    }
+
+    private Bitmap photo;
 
     public Team()
     {

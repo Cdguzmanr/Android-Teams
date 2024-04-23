@@ -234,6 +234,7 @@ public class TeamsDataSource {
         }
         return rowsaffected;
     }
+
     public int insert(Team team)
     {
         Log.d(TAG, "insert: Start");

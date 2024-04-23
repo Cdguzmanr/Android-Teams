@@ -22,17 +22,16 @@ public class  TeamsAdapter extends RecyclerView.Adapter {
     private ArrayList<Team> teamData;
     private View.OnClickListener onItemClickListener;
     private CompoundButton.OnCheckedChangeListener onItemCheckedChangeListener;
-
     public static final String TAG = "TeamAdapter";
-
     private Context parentContext;
-
     private boolean isDeleting;
-
     public void setDelete(boolean b)
     {
         isDeleting = b;
     }
+
+
+
     public class TeamViewHolder extends RecyclerView.ViewHolder{
         public TextView tvName;
         public TextView tvCity;
@@ -107,7 +106,10 @@ public class  TeamsAdapter extends RecyclerView.Adapter {
         teamViewHolder.getTvName().setText(teamData.get(position).getName());
         teamViewHolder.getTvCity().setText(teamData.get(position).getCity());
         teamViewHolder.getChkFavorite().setChecked(teamData.get(position).getIsFavorite());
-        teamViewHolder.getImageButtonPhoto().setImageResource(teamData.get(position).getImgId());
+        //teamViewHolder.getImageButtonPhoto().setImageResource(teamData.get(position).getImgId());
+
+        if(teamData.get(position).getPhoto() != null)
+            teamViewHolder.getImageButtonPhoto().setImageBitmap(teamData.get(position).getPhoto());
 
         if(isDeleting)
             teamViewHolder.getBtnDelete().setVisibility(View.VISIBLE);
@@ -149,11 +151,23 @@ public class  TeamsAdapter extends RecyclerView.Adapter {
         //                notifyDataSetChanged();
 
         Log.d(TAG, "deleteItem: parentContext: " + parentContext);
-        TeamsDataSource ds = new TeamsDataSource(parentContext);
-        Log.d(TAG, "deleteItem: " + team.toString());
-        boolean didDelete = ds.delete(team) > 0;
-        Log.d(TAG, "deleteItem: " + didDelete);
-        notifyDataSetChanged();
+        RestClient.execDeleteRequest(team,
+                parentContext.getString(R.string.api_url) + team.getId(),
+                parentContext,
+                new VolleyCallback() {
+                    @Override
+                    public void onSuccess(ArrayList<Team> result) {
+                        teamData.remove(team);
+                        notifyDataSetChanged();
+                        Log.d(TAG, "deleteItem");
+                    }
+                });
+
+        //TeamsDataSource ds = new TeamsDataSource(parentContext);
+        //Log.d(TAG, "deleteItem: " + team.toString());
+        //boolean didDelete = ds.delete(team) > 0;
+
+
 
     }
 
