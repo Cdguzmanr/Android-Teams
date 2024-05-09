@@ -54,8 +54,8 @@ public class RestClient {
                                     team.setCellPhone(object.getString("cellNumber"));
                                     team.setIsFavorite(object.getBoolean("isFavorite"));
 
-                                    //team.setLatitude(object.getDouble("latitude"));
-                                    //team.setLongitude(object.getDouble("longitude"));
+                                    team.setLatitude(object.getDouble("latitude"));
+                                    team.setLongitude(object.getDouble("longitude"));
 
                                     String jsonPhoto = object.getString("photo");
 
@@ -225,8 +225,8 @@ public class RestClient {
                                 team.setCellPhone(object.getString("cellNumber"));
                                 team.setIsFavorite(object.getBoolean("isFavorite"));
 
-                                //team.setLatitude(object.getDouble("latitude"));
-                                //team.setLongitude(object.getDouble("longitude"));
+                                team.setLatitude(object.getDouble("latitude"));
+                                team.setLongitude(object.getDouble("longitude"));
 
                                 String jsonPhoto = object.getString("photo");
 

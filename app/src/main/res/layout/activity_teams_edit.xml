@@ -123,6 +123,7 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
+                android:id="@+id/llc"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/editCell">
@@ -144,7 +145,6 @@
                     android:textColor="@color/black"
                     android:layout_weight="1"
                     android:textSize="24dp"
-                    android:layout_marginBottom="96dp"
                     app:layout_constraintStart_toEndOf="@id/txtView_rating"/>
 
                 <Button
@@ -160,6 +160,14 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <fragment android:layout_height="400dp"
+                android:layout_width="match_parent"
+                android:id="@+id/map"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llc" />
+
             <ImageButton
                 android:id="@+id/imageTeam"
                 android:layout_width="wrap_content"
@@ -167,12 +175,17 @@
                 app:srcCompat="@drawable/photoicon"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:maxWidth="80dp"
-                android:scaleType="center"
+                android:minWidth="144dp"
+                android:minHeight="144dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            |
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
 
     <include layout="@layout/navbar"/>

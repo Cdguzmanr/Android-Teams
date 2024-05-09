@@ -22,16 +22,17 @@ public class  TeamsAdapter extends RecyclerView.Adapter {
     private ArrayList<Team> teamData;
     private View.OnClickListener onItemClickListener;
     private CompoundButton.OnCheckedChangeListener onItemCheckedChangeListener;
+
     public static final String TAG = "TeamAdapter";
+
     private Context parentContext;
+
     private boolean isDeleting;
+
     public void setDelete(boolean b)
     {
         isDeleting = b;
     }
-
-
-
     public class TeamViewHolder extends RecyclerView.ViewHolder{
         public TextView tvName;
         public TextView tvCity;
@@ -157,18 +158,15 @@ public class  TeamsAdapter extends RecyclerView.Adapter {
                 new VolleyCallback() {
                     @Override
                     public void onSuccess(ArrayList<Team> result) {
-                        teamData.remove(team);
-                        notifyDataSetChanged();
-                        Log.d(TAG, "deleteItem");
                     }
                 });
+
+        teamData.remove(team);
+        notifyDataSetChanged();
 
         //TeamsDataSource ds = new TeamsDataSource(parentContext);
         //Log.d(TAG, "deleteItem: " + team.toString());
         //boolean didDelete = ds.delete(team) > 0;
-
-
-
     }
 
     @Override

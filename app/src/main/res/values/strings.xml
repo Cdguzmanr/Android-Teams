@@ -17,10 +17,14 @@
     <string name="delete">Delete</string>
     <string name="_100">100%</string>
     <string name="newtext">New</string>
+    <string name="sortby">Sort By</string>
+    <string name="sort_order">Sort Order\n</string>
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
-    <string name="sort_order">Sort Order</string>
-    <string name="sort_by">Sort By</string>
-    <string name="team_settings">Settings</string>
+    <string name="team_settings">Settings\n</string>
     <string name="api_url">https://fvtcdp.azurewebsites.net/api/Team/</string>
+    <string name="address">Address:</string>
+    <string name="enter_street_address">Enter Street Address</string>
+    <string name="wnw">wnw</string>
+    <string name="team_map_activity">Team Map Activity</string>
 </resources>
